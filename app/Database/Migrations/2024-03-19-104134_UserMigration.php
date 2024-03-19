@@ -4,50 +4,46 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class MenusMigration extends Migration
+class UserMigration extends Migration
 {
     public function up()
     {
         $this->forge->addField([
-            'menu_id' => [
+            'user_id' => [
                 'type' => 'INT',
                 'constraint' => 11,
-                'auto_increment' => true,
                 'unsigned' => true,
+                'auto_increment' => true,
             ],
-            'name' => [
+            'username' => [
                 'type' => 'varchar',
-                'constraint' =>100,
+                'constraint' => 50,
                 'null' => false,
             ],
-            'url' => [
+            'FullName' => [
                 'type' => 'varchar',
                 'constraint' => 100,
                 'null' => false,
             ],
-            'parent_id' => [
+            'dob' => [
+                'type' => 'Date',
+                'null' => true,
+            ],
+            'role_id' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
-                'null' => true,
-            ],
-            'icon' => [
-                'type' => 'varchar',
-                'constraint' =>50,
-                'null' => false,
             ],
             'created_at dateTime default current_timestamp',
             'updated_at datetime default current_timestamp on update current_timestamp',
             'deleted_at datetime default null',
         ]);
-
-        $this->forge->addPrimaryKey('menu_id');
-        $this->forge->addForeignKey('parent_id','menus', 'menu_id');
-        $this->forge->createTable('menus',true,['COMMENT' => 'Stores sidebar  links information']);
+        $this->forge->addPrimaryKey('user_id');
+        $this->forge->createTable('users',true,['COMMENT' => 'Stores users related information']);
     }
 
     public function down()
     {
-        $this->forge->dropTable('menus',true);
+        $this->forge->dropTable('users');
     }
 }
